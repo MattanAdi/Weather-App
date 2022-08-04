@@ -1,0 +1,33 @@
+#navbar{
+    position: relative;
+    Width: 100%;
+    Height: 50px;
+    border: 1px solid black;
+    padding: 2px;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content:right;
+    
+}
+
+#home{
+        background-color: beige;
+        display: inline-block;
+        position: relative;
+        top:0%;
+        padding: 0px 10px;
+        height: 100%;
+
+        
+    }
+    
+    #favorites{
+        background-color: beige;
+        display: inline-block;
+        position: relative;
+        top:0%;
+        padding: 0px 10px;
+        height: 100%;
+        
+    }
+
