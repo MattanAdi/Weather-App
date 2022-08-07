@@ -20,9 +20,11 @@
 
 #favoritescontainer{
 
-    background-color: #f0fbffe0;
+    background-color: #f2f0ffe0;
     border: 0px solid black;
     text-align: center;
+    margin: 10px;
+    
   
 }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import Weather from './Weather';
 import { useState, useEffect } from 'react';
 import './home.css'
 
@@ -40,13 +39,6 @@ const Home = (props) => {
 
         // setcityname(data.cityDets.LocalizedName)
 
-
-
-
-
-
-
-
     }
 
     useEffect(() => {
@@ -85,7 +77,6 @@ const Home = (props) => {
 
 
 
-        // upweath(data.weather)  // maybe responsible for the FIVEDAY data 
         setcityname(data.cityDets.LocalizedName)
         setcurrentweather(data.weather.WeatherText)
         settemp(data.weather.Temperature.Metric.Value)
