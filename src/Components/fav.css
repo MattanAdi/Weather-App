@@ -1,0 +1,38 @@
+#bigcont{
+
+
+    border: 0px solid black;
+    padding: 5px;
+    display: grid;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-content: space-around;
+    /* width: 300px; */
+
+}
+#cont{
+
+
+    border: 0px solid black;
+    padding:25px
+
+}
+
+#favoritescontainer{
+
+    background-color: #f0fbffe0;
+    border: 0px solid black;
+    text-align: center;
+  
+}
+
+
+.deletebutton{
+
+    border: 0px solid black;
+}
+
+
+@media (max-width:200px){
+    
+}

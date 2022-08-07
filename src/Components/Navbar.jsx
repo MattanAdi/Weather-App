@@ -18,17 +18,17 @@ const Navbar = () => {
         <div>
             <div id='navbar'>
 
-                <div id='divcont'>
 
-                    <div id="home" onClick={() => { navHome() }}>
-                        <p>Home</p>
-                    </div>
 
-                    <div id="favorites" onClick={() => { navFav() }} >
-                        <p>Favorites</p>
-                    </div>
-
+                <div id="home" onClick={() => { navHome() }}>
+                    <p>Home</p>
                 </div>
+
+                <div id="favorites" onClick={() => { navFav() }} >
+                    <p>Favorites</p>
+                </div>
+
+
 
             </div>
         </div>

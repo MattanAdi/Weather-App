@@ -1,0 +1,166 @@
+.anscontainer{
+    max-width: 300px;
+    
+    border: 0px solid black;
+
+    /* position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    margin: 0 auto;
+    background-color: #f0fbffe0;
+    text-align: center;
+    /* display: flex; */
+  }
+
+  #weathercont{
+    max-width: 300px;
+
+  }
+
+
+.anscontainer2{
+  /* max-width: 500px; */
+  /* max-height: fit-content; */
+  display: flex;
+  justify-content: space-around;
+  /* position: fixed;
+  top: 86%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  margin: 0 auto;
+
+}
+  
+
+  .blocks{
+    display: inline-block;
+    /* max-height: fit-content; */
+    /* max-width: fit-content; */
+    padding: 5px;
+    border: 0px solid black;
+  }
+
+  body{
+    background-color: aliceblue;
+  }
+
+  #userinterface{
+    text-align: center;
+    align-items: center;
+
+    margin: 0 auto;
+
+    /* background-color: antiquewhite; */
+  }
+
+  #Search{
+
+/* font-size: xx-large; */
+/* max-height: fit-content; */
+
+/* margin-left: auto;
+margin-right: auto; */
+
+ 
+border: 1px solid blue;
+text-align: center;
+background-color: aliceblue;
+
+
+  }
+
+
+  #favbutton{
+
+    border: 0px solid ;
+    font-size: large;
+    background-color: white ;
+    
+    
+    
+    
+  }
+  
+ 
+  #searchbutton{
+    border: 0px solid ;
+    font-size: large;
+    background-color: white ;
+
+    
+    
+  }
+  
+  #buttoncontainer{
+    
+
+ 
+    align-items: center;
+ 
+    
+
+
+    
+    
+
+
+  }
+  
+  .change{
+    font-size: 20px;
+
+
+ 
+}
+
+  @media (max-width:400px){
+
+    .anscontainer{
+      background-color: aliceblue;
+      
+
+    }
+
+    .change{
+      /* font-size: smaller; */
+      
+   
+ }
+    
+
+  }
+
+  #Bigone{
+
+    
+  }
+
+
+
+  @media (max-width:200px){
+
+  #favbutton{
+
+    font-size: smaller;
+    
+    
+    
+    
+  }
+
+   
+  #searchbutton{
+    font-size: smaller;
+
+    
+    
+  }
+
+
+
+  }
+  
+ 
+
+ 

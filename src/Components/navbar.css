@@ -1,12 +1,13 @@
 #navbar{
     position: relative;
-    Width: 100%;
+    max-width: 100%;
     Height: 50px;
-    border: 1px solid black;
+    border: 0px solid black;
     padding: 2px;
-    background-color: antiquewhite;
-    display: flex;
-    justify-content:right;
+    background-color: aliceblue;
+    /* display: flex; */
+    /* justify-content:right; */
+
     
 }
 
@@ -30,4 +31,25 @@
         height: 100%;
         
     }
+
+   
+    @media (max-width:400px){
+
+#navbar{
+    text-align: center;
+}
+
+#home{
+    background-color: aliceblue;
+
+}
+
+#favorites{
+
+    background-color: aliceblue;
+}
+        
+    
+      }
+    
 
