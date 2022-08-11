@@ -87,7 +87,7 @@ const Home = (props) => {
 
     //Retreive 5 day forecast data from API
     const getDays = async (id) => {
-        const base = 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/'
+        const base = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/'
         const query = `${id}?apikey=${key}`;
 
         const response = await fetch(base + query);
@@ -98,7 +98,7 @@ const Home = (props) => {
 
     //retreive weather data from API
     const getWeather = async (id) => {
-        const base = 'http://dataservice.accuweather.com/currentconditions/v1/'
+        const base = 'https://dataservice.accuweather.com/currentconditions/v1/'
         const query = `${id}?apikey=${key}`
 
         const response = await fetch(base + query)
@@ -109,7 +109,7 @@ const Home = (props) => {
 
     //retreive city data from API 
     const getCity = async (city) => {
-        const baseurl = 'http://dataservice.accuweather.com/locations/v1/cities/autocomplete'
+        const baseurl = 'https://dataservice.accuweather.com/locations/v1/cities/autocomplete'
         const query = `?apikey=${key}&q=${city}`
 
         const response = await fetch(baseurl + query);
