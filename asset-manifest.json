@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/WeatherHunt/static/css/main.11eb1dbc.css",
-    "main.js": "/WeatherHunt/static/js/main.a6edff43.js",
+    "main.js": "/WeatherHunt/static/js/main.d5208fa4.js",
     "static/js/787.aafc6230.chunk.js": "/WeatherHunt/static/js/787.aafc6230.chunk.js",
     "index.html": "/WeatherHunt/index.html",
     "main.11eb1dbc.css.map": "/WeatherHunt/static/css/main.11eb1dbc.css.map",
-    "main.a6edff43.js.map": "/WeatherHunt/static/js/main.a6edff43.js.map",
+    "main.d5208fa4.js.map": "/WeatherHunt/static/js/main.d5208fa4.js.map",
     "787.aafc6230.chunk.js.map": "/WeatherHunt/static/js/787.aafc6230.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.11eb1dbc.css",
-    "static/js/main.a6edff43.js"
+    "static/js/main.d5208fa4.js"
   ]
 }
