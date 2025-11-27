@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Weather-App/static/css/main.00e7e1fa.css",
-    "main.js": "/Weather-App/static/js/main.3a2d382a.js",
-    "static/js/787.d62d1c65.chunk.js": "/Weather-App/static/js/787.d62d1c65.chunk.js",
-    "index.html": "/Weather-App/index.html",
-    "main.00e7e1fa.css.map": "/Weather-App/static/css/main.00e7e1fa.css.map",
-    "main.3a2d382a.js.map": "/Weather-App/static/js/main.3a2d382a.js.map",
-    "787.d62d1c65.chunk.js.map": "/Weather-App/static/js/787.d62d1c65.chunk.js.map"
+    "main.css": "/WeatherHunt/static/css/main.00e7e1fa.css",
+    "main.js": "/WeatherHunt/static/js/main.32c4200a.js",
+    "static/js/787.d62d1c65.chunk.js": "/WeatherHunt/static/js/787.d62d1c65.chunk.js",
+    "index.html": "/WeatherHunt/index.html",
+    "main.00e7e1fa.css.map": "/WeatherHunt/static/css/main.00e7e1fa.css.map",
+    "main.32c4200a.js.map": "/WeatherHunt/static/js/main.32c4200a.js.map",
+    "787.d62d1c65.chunk.js.map": "/WeatherHunt/static/js/787.d62d1c65.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.00e7e1fa.css",
-    "static/js/main.3a2d382a.js"
+    "static/js/main.32c4200a.js"
   ]
 }
