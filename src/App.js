@@ -4,6 +4,27 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Favorites from './Components/Favorites';
 import { useState } from 'react';
 import Try from './Try';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline, Box } from '@mui/material';
+
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#6366f1',
+    },
+    secondary: {
+      main: '#fbbf24',
+    },
+    background: {
+      default: '#020617',
+      paper: 'rgba(15, 23, 42, 0.9)',
+    },
+  },
+  typography: {
+    fontFamily: 'Inter, system-ui, sans-serif',
+  },
+});
 
 function App() {
 
@@ -31,19 +52,25 @@ function App() {
   }
 
   return (
-    <div id="App" className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-slate-50">
-
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Home clearSelectedFavorite={clearSelectedFavorite} favorites={favs} selectedFavoriteCityId={selectedFavoriteCity} updateFavorites={updateFavorites} />} />
-          <Route path='/try' element={<Try />} />
-          <Route path='/favorites' element={<Favorites deleteFavorite={deleteFavorite} favorite={favs} clickFavoritedCity={clickFavoritedCity} />} />
-          <Route path='*' element={<Navigate to='/' replace />} />
-        </Routes>
-      </BrowserRouter>
-
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box
+        sx={{
+          minHeight: '100vh',
+          backgroundImage: 'radial-gradient(circle at top, rgba(99, 102, 241, 0.35), transparent 45%), linear-gradient(180deg, #020617 0%, #0f172a 60%, #111827 100%)',
+        }}
+      >
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<Home clearSelectedFavorite={clearSelectedFavorite} favorites={favs} selectedFavoriteCityId={selectedFavoriteCity} updateFavorites={updateFavorites} />} />
+            <Route path='/try' element={<Try />} />
+            <Route path='/favorites' element={<Favorites deleteFavorite={deleteFavorite} favorite={favs} clickFavoritedCity={clickFavoritedCity} />} />
+            <Route path='*' element={<Navigate to='/' replace />} />
+          </Routes>
+        </BrowserRouter>
+      </Box>
+    </ThemeProvider>
   );
 }
 
