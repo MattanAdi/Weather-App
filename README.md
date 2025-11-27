@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## API key
+
+The app requires you to paste your AccuWeather API key inside the search card every time you deploy to GitHub Pages. That key is stored in `localStorage` so searches remain active, and no sensitive value is embedded inside the static bundle that gets pushed to `gh-pages`.
+
 ## Available Scripts
 
 In the project directory, you can run:

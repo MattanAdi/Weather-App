@@ -2,11 +2,9 @@ import React from 'react';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import './home.css'
 
-const ACCUWEATHER_KEY = process.env.REACT_APP_ACCUWEATHER_KEY?.trim();
-
-const getDays = async (id) => {
+const getDays = async (id, key) => {
     const base = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/';
-    const query = `${id}?apikey=${ACCUWEATHER_KEY}`;
+    const query = `${id}?apikey=${key}`;
 
     const response = await fetch(base + query);
     const data = await response.json();
@@ -14,9 +12,9 @@ const getDays = async (id) => {
     return data;
 };
 
-const getWeather = async (id) => {
+const getWeather = async (id, key) => {
     const base = 'https://dataservice.accuweather.com/currentconditions/v1/';
-    const query = `${id}?apikey=${ACCUWEATHER_KEY}`;
+    const query = `${id}?apikey=${key}`;
 
     const response = await fetch(base + query);
     const data = await response.json();
@@ -24,9 +22,9 @@ const getWeather = async (id) => {
     return data[0];
 };
 
-const getCity = async (city) => {
+const getCity = async (city, key) => {
     const baseurl = 'https://dataservice.accuweather.com/locations/v1/cities/autocomplete';
-    const query = `?apikey=${ACCUWEATHER_KEY}&q=${city}`;
+    const query = `?apikey=${key}&q=${city}`;
 
     const response = await fetch(baseurl + query);
     const data = await response.json();
@@ -34,10 +32,10 @@ const getCity = async (city) => {
     return data[0];
 };
 
-const updateCity = async (city) => {
-    const cityDets = await getCity(city);
-    const weather = await getWeather(cityDets.Key);
-    const day5 = await getDays(cityDets.Key);
+const updateCity = async (city, key) => {
+    const cityDets = await getCity(city, key);
+    const weather = await getWeather(cityDets.Key, key);
+    const day5 = await getDays(cityDets.Key, key);
 
     return {
         cityDets,
@@ -46,38 +44,40 @@ const updateCity = async (city) => {
     };
 };
 
-const Home = (props) => {
-    const key = ACCUWEATHER_KEY;
+const readStoredKey = () => {
+    if (typeof window !== 'undefined') {
+        return window.localStorage.getItem('weather_api_key') ?? '';
+    }
+    return '';
+};
 
+const Home = (props) => {
     const favCityId = props.selectedFavoriteCityId  // 
     const favCity = props.favorites.find((val) => { return val.id === favCityId }) //find val of favorites and check if val.id === favCityId
     const hasSelectedFavorite = Boolean(favCity);
 
-    console.log("FAV CITY ", hasSelectedFavorite, props.favorites, favCity)
-    const missingKey = !key;
-
-    if (missingKey) {
-        console.warn('Supply REACT_APP_ACCUWEATHER_KEY to fetch weather data.');
-    }
-
-
-    // Relavant UseStates *** 
     const [city, addCity] = useState('') // this represents the user input when retrieving API
-
 
     const [cityname, setcityname] = useState(hasSelectedFavorite ? favCity.cityname : '')//Main Weather/City Info - middle block
     const [currentweather, setcurrentweather] = useState(hasSelectedFavorite ? favCity.currentweather : '')//Main Weather/City Info - middle block
     const [temperature, settemp] = useState(hasSelectedFavorite ? favCity.temperature : '')//Main Weather/City Info - middle block
     const [id, setid] = useState(hasSelectedFavorite ? favCityId : '')//Main Weather/City Info - middle block
 
-
-
+    const [apiKey, setApiKey] = useState(() => readStoredKey());
+    const [draftKey, setDraftKey] = useState(apiKey);
     const [fiveday, indays] = useState() // For the fiveday forcest on bottom
     const [isLoading, setIsLoading] = useState(false);
     const [justUpdated, setJustUpdated] = useState(false);
     const highlightTimeout = useRef(null);
     const isFavorite = Boolean(props.favorites.find((val) => val.id === id));
-    // Relavant UseStates ***  
+    const keyForFetch = apiKey.trim();
+    const missingKey = !keyForFetch;
+
+    useEffect(() => {
+        setDraftKey(apiKey);
+    }, [apiKey]);
+
+    props.clearSelectedFavorite();
 
     const updateApp = useCallback((data) => {
         const cityDets = data.cityDets
@@ -85,8 +85,6 @@ const Home = (props) => {
         const day5 = data.day5
 
         console.log('weather: ', weather.WeatherText, 'citydetails: ', cityDets.LocalizedName, 'five day', day5.DailyForecasts)
-
-
 
         setcityname(data.cityDets.LocalizedName)
         setcurrentweather(data.weather.WeatherText)
@@ -102,8 +100,6 @@ const Home = (props) => {
 
     }, []);
 
-    props.clearSelectedFavorite();
-
     useEffect(() => {
         if (hasSelectedFavorite || missingKey) return;
 
@@ -112,7 +108,7 @@ const Home = (props) => {
         const fetchDefaultCity = async () => {
             setIsLoading(true);
             try {
-                const data = await updateCity('tel');
+                const data = await updateCity('tel', keyForFetch);
                 if (!cancelled) {
                     updateApp(data);
                 }
@@ -130,7 +126,7 @@ const Home = (props) => {
         return () => {
             cancelled = true;
         };
-    }, [hasSelectedFavorite, missingKey, updateApp]);
+    }, [hasSelectedFavorite, missingKey, updateApp, keyForFetch]);
 
     useEffect(() => {
         return () => {
@@ -140,6 +136,15 @@ const Home = (props) => {
         };
     }, []);
 
+    const persistKey = (nextKey) => {
+        if (typeof window !== 'undefined') {
+            if (nextKey) {
+                window.localStorage.setItem('weather_api_key', nextKey);
+            } else {
+                window.localStorage.removeItem('weather_api_key');
+            }
+        }
+    };
 
     function sendFavs() {
         const hasDuplicate = Boolean(props.favorites.find((val) => val.id === id))
@@ -152,18 +157,23 @@ const Home = (props) => {
         }
     }
 
+    const saveApiKey = () => {
+        const trimmed = draftKey.trim();
+        setApiKey(trimmed);
+        persistKey(trimmed);
+    };
 
     async function sendit() {
         const query = city.trim()
         if (!query) return
-        if (!key) {
-            window.alert('Set REACT_APP_ACCUWEATHER_KEY in your environment before searching.');
+        if (missingKey) {
+            window.alert('Enter your AccuWeather API key to search.');
             return
         }
 
         setIsLoading(true);
         try {
-            const data = await updateCity(query);
+            const data = await updateCity(query, keyForFetch);
             updateApp(data)
         } catch (error) {
             console.error(error);
@@ -180,6 +190,21 @@ const Home = (props) => {
                     <p className='eyebrow'>Weather Explorer</p>
                     <h1>Search any city</h1>
                     <p className='search-description'>Type a location, then hit Search or press Enter to see it on the map.</p>
+                </div>
+                <div className='key-row'>
+                    <input
+                        className='key-input'
+                        value={draftKey}
+                        onChange={(e) => setDraftKey(e.target.value)}
+                        type='text'
+                        placeholder='Paste your AccuWeather API key'
+                    />
+                    <button type='button' className='primary-button key-save' onClick={saveApiKey}>
+                        Save key
+                    </button>
+                </div>
+                <div className='key-status'>
+                    {missingKey ? 'API key required for weather data. Save it above to enable searches.' : 'API key saved locally; searches ready.'}
                 </div>
                 <div className='search-row'>
                     <input
@@ -198,7 +223,7 @@ const Home = (props) => {
                         type="text"
                         placeholder='Search for city here'
                     />
-                    <button type='button' className='primary-button' onClick={sendit} disabled={isLoading}>
+                    <button type='button' className='primary-button' onClick={sendit} disabled={isLoading || missingKey}>
                         {isLoading ? 'Searching…' : 'Search'}
                     </button>
                 </div>
@@ -209,7 +234,7 @@ const Home = (props) => {
                             Receiving the latest weather…
                         </div>
                     ) : (
-                        <span className='hint-text'>Press Enter or Search to refresh the forecast.</span>
+                        <span className='hint-text'>{missingKey ? 'Save your key to preview live weather.' : 'Press Enter or Search to refresh the forecast.'}</span>
                     )}
                 </div>
                 <button type='button' className='secondary-button' onClick={sendFavs}>Add to Favorites</button>
