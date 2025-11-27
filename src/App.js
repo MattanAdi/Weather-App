@@ -1,6 +1,6 @@
 import Home from './Components/Home';
 import Navbar from './Components/Navbar';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Favorites from './Components/Favorites';
 import { useState } from 'react';
 import Try from './Try';
@@ -60,7 +60,7 @@ function App() {
           backgroundImage: 'radial-gradient(circle at top, rgba(99, 102, 241, 0.35), transparent 45%), linear-gradient(180deg, #020617 0%, #0f172a 60%, #111827 100%)',
         }}
       >
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <HashRouter>
           <Navbar />
           <Routes>
             <Route path='/' element={<Home clearSelectedFavorite={clearSelectedFavorite} favorites={favs} selectedFavoriteCityId={selectedFavoriteCity} updateFavorites={updateFavorites} />} />
