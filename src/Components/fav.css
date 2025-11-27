@@ -1,40 +1,111 @@
-#bigcont{
-
-
-    border: 0px solid black;
-    padding: 5px;
-    display: grid;
-    flex-direction: row;
-    justify-content: space-between;
-    justify-content: space-around;
-    /* width: 300px; */
-
-}
-#cont{
-
-
-    border: 0px solid black;
-    padding:25px
-
+.favorites-root {
+  width: 100%;
+  min-height: calc(100vh - 50px);
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1rem 4rem;
 }
 
-#favoritescontainer{
-
-    background-color: #f2f0ffe0;
-    border: 0px solid black;
-    text-align: center;
-    margin: 10px;
-    
-  
+.favorites-panel {
+  width: min(960px, 100%);
+  background: rgba(255, 255, 255, 0.93);
+  border-radius: 28px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 25px 55px rgba(15, 23, 42, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
 }
 
-
-.deletebutton{
-
-    border: 0px solid black;
+.favorites-headline {
+  text-align: center;
 }
 
+.favorites-headline h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -0.05rem;
+}
 
-@media (max-width:200px){
-    
+.favorites-headline p {
+  margin: 0.35rem 0 0;
+  color: #475569;
+}
+
+.favorites-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.favorite-card {
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 20px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.favorite-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.25);
+}
+
+.favorite-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.favorite-label {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+.favorite-value {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.delete-button {
+  align-self: flex-end;
+  margin-top: 0.5rem;
+  border-radius: 999px;
+  border: none;
+  padding: 0.4rem 1rem;
+  background: #ef4444;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.delete-button:hover {
+  background: #dc2626;
+}
+
+.empty-state {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: #94a3b8;
+}
+
+@media (max-width: 600px) {
+  .favorites-panel {
+    padding: 2rem 1.25rem;
+  }
+
+  .favorite-card {
+    padding: 1rem;
+  }
 }

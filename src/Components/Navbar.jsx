@@ -15,21 +15,15 @@ const Navbar = () => {
 
 
     return (
-        <div>
+        <div className='navbar-shell'>
             <div id='navbar'>
-
-
-
-                <div id="home" onClick={() => { navHome() }}>
-                    <p>Home</p>
+                <div className='brand' onClick={() => { navHome() }}>
+                    Weather Studio
                 </div>
-
-                <div id="favorites" onClick={() => { navFav() }} >
-                    <p>Favorites</p>
+                <div className='nav-actions'>
+                    <button type='button' className='nav-link' onClick={() => { navHome() }}>Home</button>
+                    <button type='button' className='nav-link' onClick={() => { navFav() }}>Favorites</button>
                 </div>
-
-
-
             </div>
         </div>
     );

@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function Try() {
-    const key = 'sxR8BD9K4GAUdhHuJXABq6H3bDOtfALP'
 
 
     //     const getDays=async(id)=>{
