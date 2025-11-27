@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import './home.css'
 
 const getDays = async (id, key) => {
     const base = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/';
@@ -184,31 +183,35 @@ const Home = (props) => {
     }
 
     return (
-        <div id='Bigone' className='home-root'>
-            <section className='glass-card search-card'>
-                <div className='search-heading'>
-                    <p className='eyebrow'>Weather Explorer</p>
-                    <h1>Search any city</h1>
-                    <p className='search-description'>Type a location, then hit Search or press Enter to see it on the map.</p>
+        <div className="mx-auto max-w-5xl space-y-6 px-4 py-12 sm:px-6 lg:px-8">
+            <section className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-indigo-900/40 backdrop-blur-xl transition-all duration-300">
+                <div className="space-y-2">
+                    <p className="text-xs font-semibold uppercase tracking-[0.4rem] text-slate-400">Weather Explorer</p>
+                    <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Search any city</h1>
+                    <p className="text-sm text-slate-300">Type a location, then hit Search or press Enter to refresh the forecast.</p>
                 </div>
-                <div className='key-row'>
+
+                <div className="mt-6 flex flex-col gap-4 lg:flex-row lg:items-center">
                     <input
-                        className='key-input'
+                        className="flex-1 rounded-full border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
                         value={draftKey}
                         onChange={(e) => setDraftKey(e.target.value)}
                         type='text'
                         placeholder='Paste your AccuWeather API key'
                     />
-                    <button type='button' className='primary-button key-save' onClick={saveApiKey}>
+                    <button
+                        type='button'
+                        onClick={saveApiKey}
+                        className="rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-500/30 transition hover:translate-y-0.5 hover:shadow-cyan-500/50"
+                    >
                         Save key
                     </button>
                 </div>
-                <div className='key-status'>
-                    {missingKey ? 'API key required for weather data. Save it above to enable searches.' : 'API key saved locally; searches ready.'}
-                </div>
-                <div className='search-row'>
+                <p className="mt-2 text-xs text-slate-300">{missingKey ? 'Save your API key above to unlock live weather data.' : 'Key saved locally so the explorer can refresh automatically.'}</p>
+
+                <div className="mt-6 flex flex-col gap-3 lg:flex-row lg:items-center">
                     <input
-                        className='search-input'
+                        className="flex-1 rounded-full border border-white/20 bg-white/10 px-4 py-3 text-base text-white placeholder:text-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
                         value={city}
                         onChange={(e) => {
                             let temp = e.target.value
@@ -223,49 +226,61 @@ const Home = (props) => {
                         type="text"
                         placeholder='Search for city here'
                     />
-                    <button type='button' className='primary-button' onClick={sendit} disabled={isLoading || missingKey}>
+                    <button
+                        type='button'
+                        className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-black/30 transition disabled:cursor-not-allowed disabled:opacity-60"
+                        onClick={sendit}
+                        disabled={isLoading || missingKey}
+                    >
                         {isLoading ? 'Searching…' : 'Search'}
                     </button>
                 </div>
-                <div className='search-feedback'>
+
+                <div className="mt-4">
                     {isLoading ? (
-                        <div className='loading-indicator' role='status' aria-live='polite'>
-                            <span className='spinner' aria-hidden='true'></span>
+                        <div className="flex items-center gap-3 text-sm text-slate-200">
+                            <span className="h-4 w-4 animate-spin rounded-full border-2 border-slate-200 border-t-yellow-400"></span>
                             Receiving the latest weather…
                         </div>
                     ) : (
-                        <span className='hint-text'>{missingKey ? 'Save your key to preview live weather.' : 'Press Enter or Search to refresh the forecast.'}</span>
+                        <span className="text-sm text-slate-400">{missingKey ? 'Save a key to start searching, then press Search or Enter.' : 'Search whenever you want to fetch fresh data.'}</span>
                     )}
                 </div>
-                <button type='button' className='secondary-button' onClick={sendFavs}>Add to Favorites</button>
+
+                <button
+                    type='button'
+                    className="mt-4 rounded-full border border-white/20 bg-white/5 px-5 py-2 text-sm font-semibold text-white/90 transition hover:bg-white/10"
+                    onClick={sendFavs}
+                >
+                    Add to Favorites
+                </button>
             </section>
 
-            <section className={`glass-card weather-card ${justUpdated ? 'fresh' : ''}`}>
-                <p className='weather-label'>Now in</p>
-                <p className='weather-city'>{cityname || 'Tel Aviv'}</p>
-                <p className='weather-text'>{currentweather || 'Fetching weather...'}</p>
-                <p className='weather-temp'>{temperature ? `${temperature}°C` : '---'}</p>
-                {isFavorite && <span className='saved-indicator'>⭐ Saved in Favorites</span>}
-                <div className={`result-flash ${justUpdated ? 'active' : ''}`} aria-hidden='true' />
+            <section className={`rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-indigo-900/50 transition ${justUpdated ? 'ring-2 ring-yellow-400/60 shadow-[0_0_40px_rgba(245,158,11,0.45)]' : ''}`}>
+                <p className="text-xs font-semibold uppercase tracking-[0.4rem] text-slate-400">Now in</p>
+                <p className="mt-1 text-3xl font-semibold text-white">{cityname || 'Tel Aviv'}</p>
+                <p className="text-sm text-cyan-300">{currentweather || 'Fetching weather...'}</p>
+                <p className="mt-3 text-4xl font-bold text-white">{temperature ? `${temperature}°C` : '---'}</p>
+                {isFavorite && <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-yellow-400/20 px-3 py-1 text-xs font-semibold text-amber-200">⭐ Saved in Favorites</span>}
             </section>
 
-            <section className='glass-card forecast-card'>
-                <div className='forecast-header'>
-                    <h2>5-Day Forecast</h2>
-                    <p className='forecast-description'>{cityname ? `Daily highs for ${cityname}` : 'Waiting for your next search'}</p>
+            <section className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-indigo-900/40">
+                <div className="flex flex-wrap items-baseline justify-between gap-3">
+                    <h2 className="text-2xl font-semibold text-white">5-Day Forecast</h2>
+                    <p className="text-sm text-slate-400">{cityname ? `Daily highs for ${cityname}` : 'Waiting for your next search'}</p>
                 </div>
                 {fiveday ? (
-                    <div className='forecast-grid'>
+                    <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
                         {fiveday.map((val) => (
-                            <article key={val.Date} className='forecast-day'>
-                                <p className='day-label'>{new Date(val.Date).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</p>
-                                <p className='day-temp'>{val.Temperature.Maximum.Value}°F</p>
-                                <p className='day-summary'>{val.Day.IconPhrase}</p>
+                            <article key={val.Date} className="rounded-2xl border border-white/5 bg-white/5 p-4 text-center shadow-inner shadow-slate-900/20">
+                                <p className="text-xs text-slate-400">{new Date(val.Date).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</p>
+                                <p className="mt-2 text-xl font-semibold text-white">{val.Temperature.Maximum.Value}°F</p>
+                                <p className="text-xs uppercase tracking-[0.2rem] text-slate-400">{val.Day.IconPhrase}</p>
                             </article>
                         ))}
                     </div>
                 ) : (
-                    <p className='empty-state'>Pulling in the five-day forecast…</p>
+                    <p className="mt-4 text-sm text-slate-400">Pulling in the five-day forecast…</p>
                 )}
             </section>
         </div>

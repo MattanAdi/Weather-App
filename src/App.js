@@ -1,8 +1,7 @@
 import Home from './Components/Home';
 import Navbar from './Components/Navbar';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Favorites from './Components/Favorites';
-import './App.css';
 import { useState } from 'react';
 import Try from './Try';
 
@@ -32,14 +31,15 @@ function App() {
   }
 
   return (
-    <div id="App" >
+    <div id="App" className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-slate-50">
 
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Navbar />
         <Routes>
           <Route path='/' element={<Home clearSelectedFavorite={clearSelectedFavorite} favorites={favs} selectedFavoriteCityId={selectedFavoriteCity} updateFavorites={updateFavorites} />} />
           <Route path='/try' element={<Try />} />
           <Route path='/favorites' element={<Favorites deleteFavorite={deleteFavorite} favorite={favs} clickFavoritedCity={clickFavoritedCity} />} />
+          <Route path='*' element={<Navigate to='/' replace />} />
         </Routes>
       </BrowserRouter>
 
