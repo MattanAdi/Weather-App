@@ -68,7 +68,7 @@ function App() {
             <Route path='/favorites' element={<Favorites deleteFavorite={deleteFavorite} favorite={favs} clickFavoritedCity={clickFavoritedCity} />} />
             <Route path='*' element={<Navigate to='/' replace />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </Box>
     </ThemeProvider>
   );
